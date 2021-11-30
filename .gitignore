@@ -58,3 +58,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+TrainingUnity/Library/Artifacts
+TrainingUnity/Library
+TrainingUnity/Temp
+TrainingUnity/Logs
