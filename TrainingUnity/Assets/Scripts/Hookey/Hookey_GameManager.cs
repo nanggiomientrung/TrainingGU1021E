@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hookey_GameManager : MonoBehaviour
 {
-    [SerializeField] private TextMesh scoreText;
+    [SerializeField] private Text scoreText;
     [SerializeField] private Rigidbody2D ball;
     private int playerScore = 0;
     private int enemyScore = 0;
 
     public static Hookey_GameManager instance;
+
+    [SerializeField] private Button playAgainButton, exitGameButton;
+    [SerializeField] private GameObject endGamePopup;
 
     private void Awake()
     {
@@ -24,6 +28,9 @@ public class Hookey_GameManager : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
 
         ResetBallAfterGoal();
+
+        playAgainButton.onClick.AddListener(PlayAgain);
+        exitGameButton.onClick.AddListener(ExitGame);
     }
 
     public void NewGame()
@@ -56,5 +63,20 @@ public class Hookey_GameManager : MonoBehaviour
         ball.transform.position = new Vector3(0, -2, 0);
         //ball.velocity = new Vector2(0,-8);
         ball.velocity = Vector2.zero;
+
+
+    }
+
+    private void PlayAgain()
+    {
+        Debug.LogError("nhan nut play again");
+        endGamePopup.SetActive(false);
+    }
+
+    private void ExitGame()
+    {
+        Debug.LogError("nhan nut exit game");
+        //Application.Quit();
+        UnityEditor.EditorApplication.isPlaying = false;
     }
 }
