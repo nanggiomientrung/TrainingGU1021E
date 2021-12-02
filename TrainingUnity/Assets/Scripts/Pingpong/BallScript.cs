@@ -21,4 +21,9 @@ public class BallScript : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.LogError("trigger enter" + collision.gameObject.name);
+    }
 }
