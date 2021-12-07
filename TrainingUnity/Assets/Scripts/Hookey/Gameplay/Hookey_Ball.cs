@@ -21,6 +21,8 @@ public class Hookey_Ball : MonoBehaviour
         if (collision.transform.name == "Player" || collision.transform.name == "Enemy")
         {
             AddForceWhenCollision((Vector2)transform.position - (Vector2)collision.transform.position);
+
+            SoundController.instance.PlayHitSound();
         }
     }
 
