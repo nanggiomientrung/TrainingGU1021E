@@ -7,13 +7,14 @@ public class Hookey_GameManager : MonoBehaviour
 {
     [SerializeField] private Text scoreText;
     [SerializeField] private Rigidbody2D ball;
+    [SerializeField] private Hookey_EndGamePopup endGamePopup;
+
     private int playerScore = 0;
     private int enemyScore = 0;
 
     public static Hookey_GameManager instance;
 
-    [SerializeField] private Button playAgainButton, exitGameButton;
-    [SerializeField] private GameObject endGamePopup;
+    
 
     private void Awake()
     {
@@ -28,13 +29,11 @@ public class Hookey_GameManager : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
 
         ResetBallAfterGoal();
-
-        playAgainButton.onClick.AddListener(PlayAgain);
-        exitGameButton.onClick.AddListener(ExitGame);
     }
 
     public void NewGame()
     {
+        ball.bodyType = RigidbodyType2D.Dynamic;
         playerScore = 0;
         enemyScore = 0;
         DisplayScoreText();
@@ -51,6 +50,12 @@ public class Hookey_GameManager : MonoBehaviour
         }
         ResetBallAfterGoal();
         DisplayScoreText();
+
+        if (playerScore == 5 || enemyScore == 5)
+        {
+            endGamePopup.ShowEndGame(playerScore == 5);
+            ball.bodyType = RigidbodyType2D.Static;
+        }
     }
 
     private void DisplayScoreText()
@@ -63,20 +68,5 @@ public class Hookey_GameManager : MonoBehaviour
         ball.transform.position = new Vector3(0, -2, 0);
         //ball.velocity = new Vector2(0,-8);
         ball.velocity = Vector2.zero;
-
-
-    }
-
-    private void PlayAgain()
-    {
-        Debug.LogError("nhan nut play again");
-        endGamePopup.SetActive(false);
-    }
-
-    private void ExitGame()
-    {
-        Debug.LogError("nhan nut exit game");
-        //Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
     }
 }
