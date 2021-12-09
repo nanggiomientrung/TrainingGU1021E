@@ -12,12 +12,12 @@ public class BallScript : MonoBehaviour
             if(transform.position.x > 0)
             {
                 // player get score
-                GameManager.instance.ChangeScore(true);
+                PingPong_GameManager.instance.ChangeScore(true);
             }
             else
             {
                 // enemy get score
-                GameManager.instance.ChangeScore(false);
+                PingPong_GameManager.instance.ChangeScore(false);
             }
         }
     }

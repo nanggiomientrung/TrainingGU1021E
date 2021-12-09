@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class PingPong_GameManager : MonoBehaviour
 {
     [SerializeField] private TextMesh scoreText;
     private int playerScore;
     private int enemyScore;
 
-    public static GameManager instance;
+    public static PingPong_GameManager instance;
     // singleton design pattern
 
     private void Awake()
