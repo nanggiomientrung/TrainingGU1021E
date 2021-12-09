@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class TRex_GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject obstaclePrefab;
+    [SerializeField] private LevelData_ScriptableObject levelDataScriptableObject;
     [SerializeField] private float cooldown = 2;
 
     private float score;
     [SerializeField] private float scoreByTimeMultiplier = 1;
     [SerializeField] private Text scoreText;
+    [SerializeField] private Text highScoreText;
     [SerializeField] private Button replayButton;
 
     public static TRex_GameManager instance;
@@ -19,6 +20,8 @@ public class TRex_GameManager : MonoBehaviour
     {
         instance = this;
         replayButton.onClick.AddListener(RestartGame);
+
+        highScoreText.text = $"High score: {PlayerPrefs.GetInt("HighScore", 0)}";
     }
 
     private void Start()
@@ -44,7 +47,26 @@ public class TRex_GameManager : MonoBehaviour
 
     private void SpawnObstacle()
     {
-        GameObject temp = Instantiate(obstaclePrefab);
+        GameObject temp;
+        if (score <= 100)
+        {
+            temp = Instantiate(levelDataScriptableObject.levelData[0].prefab);
+            temp.GetComponent<TRex_Obstacle>().SetVelocity(levelDataScriptableObject.levelData[0].velocity);
+        }
+        else
+        {
+            if (score <= 200)
+            {
+                temp = Instantiate(levelDataScriptableObject.levelData[1].prefab);
+                temp.GetComponent<TRex_Obstacle>().SetVelocity(levelDataScriptableObject.levelData[1].velocity);
+            }
+            else
+            {
+                temp = Instantiate(levelDataScriptableObject.levelData[2].prefab);
+                temp.GetComponent<TRex_Obstacle>().SetVelocity(levelDataScriptableObject.levelData[2].velocity);
+            }
+        }
+
         temp.transform.position = new Vector3(12, -3, 0);
         obstacleList.Add(temp);
     }
@@ -62,6 +84,11 @@ public class TRex_GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         replayButton.gameObject.SetActive(true);
+
+        if ((int)score > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", (int)score);
+        }
     }
 
     private List<GameObject> obstacleList = new List<GameObject>();
@@ -76,5 +103,10 @@ public class TRex_GameManager : MonoBehaviour
             Destroy(obstacleList[i]);
         }
         obstacleList.Clear();
+
+        highScoreText.text =$"High score: {PlayerPrefs.GetInt("HighScore", 0)}";
     }
+
+
+
 }

@@ -12,4 +12,9 @@ public class TRex_Obstacle : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void SetVelocity(float InputVelocity)
+    {
+        velocity = InputVelocity;
+    }
 }
