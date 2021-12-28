@@ -24,16 +24,40 @@ public class Workshop2_EnemyAutoMoving : MonoBehaviour
 
     private void Update()
     {
-        if(isMoving)
+        if (isMoving)
         {
             transform.position += new Vector3(-5 * Time.deltaTime, 0, 0);
         }
 
-        if(transform.position.x < -9)
+        if (transform.position.x < -9)
         {
             SimplePool.Despawn(gameObject);
             gameObject.SetActive(false);
             //Destroy(gameObject);
+        }
+    }
+
+    private float selfDamage;
+
+    private ActorType targetActorType = ActorType.Enemy;
+    public void SetDamageForFrog(float damage)
+    {
+        selfDamage = damage;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.LogError($"Hit damage: {selfDamage}");
+        TakeDamageInterface takeDamageInterface = collision.GetComponent<TakeDamageInterface>();
+
+        if (takeDamageInterface.GetActorType() == targetActorType)
+        {
+            takeDamageInterface.TakeDamage(selfDamage);
+            SimplePool.Despawn(gameObject);
+        }
+        else
+        {
+            //....
         }
     }
 }

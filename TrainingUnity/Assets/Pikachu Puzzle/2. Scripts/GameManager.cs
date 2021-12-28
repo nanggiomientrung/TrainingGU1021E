@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public const float maxLife = 100;
+
     [SerializeField] private Text remainTimeText;
     [SerializeField] private Text levelText;
     [SerializeField] private Slider remainTimeSlider;

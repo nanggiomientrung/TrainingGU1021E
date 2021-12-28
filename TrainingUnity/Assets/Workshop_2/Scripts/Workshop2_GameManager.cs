@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,7 +52,7 @@ public class Workshop2_GameManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(1f);
             if (isPauseGame == false)
             {
                 SpawnFrog();
@@ -60,13 +60,13 @@ public class Workshop2_GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private GameObject frogPrefab;
-    private GameObject tempFrog;
+    [SerializeField] private Workshop2_EnemyAutoMoving frogPrefab;
+    private Workshop2_EnemyAutoMoving tempFrog;
     private void SpawnFrog()
     {
-        tempFrog = SimplePool.Spawn(frogPrefab);
+        tempFrog = SimplePool.Spawn(frogPrefab); // tương đương Instantiate(frogPrefab)
         tempFrog.transform.position = new Vector3(8.8f, UnityEngine.Random.Range(-2f, 2), -1);
-
+        tempFrog.SetDamageForFrog(UnityEngine.Random.Range(5f, 10));
     }
 
     [SerializeField] private Sprite testSprite;
