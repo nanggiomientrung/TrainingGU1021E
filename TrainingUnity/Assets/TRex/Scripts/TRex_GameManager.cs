@@ -43,6 +43,8 @@ public class TRex_GameManager : MonoBehaviour
         score += Time.deltaTime * scoreByTimeMultiplier;
 
         scoreText.text = $"SCORE: {(int)score}";
+
+        Time.timeScale = 0;
     }
 
     private void SpawnObstacle()
