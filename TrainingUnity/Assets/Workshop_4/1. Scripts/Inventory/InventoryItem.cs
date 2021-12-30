@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryItem : MonoBehaviour
+[Serializable]
+public class InventoryItem
 {
     // item consumable: hồi máu, mana, thức ăn (có thể có cấp độ hoặc ko)
     // Life_Flask
@@ -57,27 +59,61 @@ public class InventoryItem : MonoBehaviour
     public string ItemName; // tên của item
     public InventoryItemType ItemType;
     public string ItemData; // chính là json lưu data của item
-
-
-
-    
-
-
-    // ItemName = Life Flask
-    // ItemType = InventoryItemType.LifeFlask
-    // ItemTier = 2
-    // Damage = -1
-    // Armour = -1
-    // {ItemTier = 2}
-
-
-    // ItemName = Sword
-    // ItemType = InventoryItemType.Sword
-    // ItemTier = 0
-    // Damage = 101
-    // Armour = -1
-    // {EquipType = OneHand, Level = 25, Damage = 101,....}
 }
+
+[Serializable]
+public class InventoryItemList
+{
+    public List<InventoryItem> ItemList = new List<InventoryItem>();
+}
+
+
+#region CONSUMABLE ITEM
+[Serializable]
+public class LifeFlask : ConsumableItem
+{
+
+}
+[Serializable]
+public class ManaFlask : ConsumableItem
+{
+
+}
+[Serializable]
+public class Food : ConsumableItem
+{
+
+}
+[Serializable]
+public class ConsumableItem
+{
+    public int ItemTier;
+    public int StackQuantity;
+    public int Quantity;
+}
+#endregion CONSUMABLE ITEM
+
+#region WEAPON ITEM
+[Serializable]
+public class Weapon
+{
+    public ItemRarity Rarity;
+    public int Damage;
+    public int Level;
+    public int Durability;
+}
+#endregion WEAPON ITEM
+
+#region ARMOUR ITEM
+[Serializable]
+public class ArmourItem
+{
+    public ItemRarity Rarity;
+    public int ArmourValue;
+    public int Level;
+    public int Durability;
+}
+#endregion ARMOUR ITEM
 
 public enum InventoryItemType
 {
@@ -96,4 +132,15 @@ public enum InventoryItemType
     CraftMaterial = 9,
 
     Charm = 10
+}
+
+public enum ItemRarity
+{
+    // rarity: normal - magic - rare - unique - heroic - legendary
+    Normal = 0,
+    Magic = 1,
+    Rare = 2,
+    Unique = 3,
+    Heroic = 4,
+    Legendary = 5
 }
