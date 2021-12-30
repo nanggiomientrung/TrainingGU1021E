@@ -277,6 +277,7 @@ MonoBehaviour:
   loadButton_2: {fileID: 2017565522}
   image_1: {fileID: 2016557741}
   image_2: {fileID: 1591527240}
+  testType: 6
 --- !u!4 &451365121
 Transform:
   m_ObjectHideFlags: 0

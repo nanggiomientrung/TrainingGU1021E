@@ -8,6 +8,8 @@ public class TestResources : MonoBehaviour
     [SerializeField] private Button loadButton_1;
     [SerializeField] private Button loadButton_2;
     [SerializeField] private Image image_1, image_2;
+    [SerializeField] private InventoryItemType testType;
+
 
     void Start()
     {
