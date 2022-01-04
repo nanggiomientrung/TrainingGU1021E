@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class InventoryCreator : MonoBehaviour
 {
     [SerializeField] private Button insertItemButton;
     [SerializeField] private Button genJsonButton;
+    [SerializeField] private Button retrieveInventoryButton;
 
     [SerializeField] private Text text_2, text_3, text_4, text_5;
     [SerializeField] private TMP_Dropdown itemTypeDropDown;
@@ -22,6 +24,7 @@ public class InventoryCreator : MonoBehaviour
     {
         insertItemButton.onClick.AddListener(InsertItem);
         genJsonButton.onClick.AddListener(GenJson);
+        retrieveInventoryButton.onClick.AddListener(RetrieveData);
 
         itemTypeDropDown.onValueChanged.AddListener(OnItemTypeChange);
     }
@@ -131,6 +134,43 @@ public class InventoryCreator : MonoBehaviour
 
     private void GenJson()
     {
-        Debug.LogError(JsonUtility.ToJson(items));
+        //Debug.LogError(JsonUtility.ToJson(items));
+        SaveDataToPersistent("InventoryData", JsonUtility.ToJson(items));
+    }
+
+    private void SaveDataToPersistent(string fileName, string dataString)
+    {
+        string dataPath = $"{Application.persistentDataPath}/{fileName}.txt";
+        new System.Threading.Thread(() =>
+        {
+            File.WriteAllText(dataPath, dataString);
+        }
+        ).Start();
+    }
+
+    private void RetrieveData()
+    {
+        string dataString = ReadDataFromPersistent("InventoryData");
+        if(dataString != "")
+        {
+            items = JsonUtility.FromJson<InventoryItemList>(dataString);
+        }
+        else
+        {
+            items = new InventoryItemList();
+        }
+    }
+
+    private string ReadDataFromPersistent(string fileName)
+    {
+        string dataPath = $"{Application.persistentDataPath}/{fileName}.txt";
+        if (System.IO.File.Exists(dataPath))
+        {
+            return System.IO.File.ReadAllText(dataPath);
+        }
+        else
+        {
+            return "";
+        }
     }
 }
