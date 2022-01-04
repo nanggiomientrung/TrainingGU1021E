@@ -141,6 +141,7 @@ public class InventoryCreator : MonoBehaviour
     private void SaveDataToPersistent(string fileName, string dataString)
     {
         string dataPath = $"{Application.persistentDataPath}/{fileName}.txt";
+
         new System.Threading.Thread(() =>
         {
             File.WriteAllText(dataPath, dataString);
