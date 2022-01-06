@@ -19,6 +19,10 @@ public class InventoryItemScript : MonoBehaviour
         selfButton.onClick.AddListener(SelectItem);
         InventoryController.instance.OnSelectItem += OnSelectItem;
     }
+    private void OnDestroy()
+    {
+        InventoryController.instance.OnSelectItem -= OnSelectItem;
+    }
 
     public void SetDataToItem(int ItemIndex, string ItemName, InventoryItemType ItemType, string ItemData)
     {
@@ -47,7 +51,7 @@ public class InventoryItemScript : MonoBehaviour
                 break;
         }
 
-        if(ItemIndex == 0)
+        if (ItemIndex == 0)
         {
             StartCoroutine(AutoSelectItem());
         }
@@ -67,7 +71,7 @@ public class InventoryItemScript : MonoBehaviour
 
     private void OnSelectItem(int selectedItemIndex)
     {
-        if(itemIndex != selectedItemIndex)
+        if (itemIndex != selectedItemIndex)
         {
             selectGO.SetActive(false);
         }

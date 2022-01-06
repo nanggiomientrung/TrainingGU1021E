@@ -90,6 +90,7 @@ public class ConsumableItem
     public int ItemTier;
     public int StackQuantity;
     public int Quantity;
+    // public int ComsumableValue;
 }
 #endregion CONSUMABLE ITEM
 

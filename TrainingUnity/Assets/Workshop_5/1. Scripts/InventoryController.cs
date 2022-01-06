@@ -13,6 +13,7 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private Text itemInformationText;
     [SerializeField] private Image itemIcon;
     [SerializeField] private Button upgradeButton, sellButton;
+    [SerializeField] private Button testValueButton;
 
 
     public Action<int> OnSelectItem;
@@ -74,6 +75,8 @@ public class InventoryController : MonoBehaviour
         SpawnListItems();
 
         sellButton.onClick.AddListener(SellItem);
+
+        testValueButton.onClick.AddListener(GetDamageOfWeapon);
     }
 
     private void SpawnListItems()
@@ -168,4 +171,13 @@ public class InventoryController : MonoBehaviour
         }
     }
     #endregion LOAD ITEM FROM LOCAL
+
+    #region SCRIPTABLE OBJECT DATA
+    [SerializeField] private ItemStatConfig statConfigData;
+
+    private void GetDamageOfWeapon()
+    {
+        Debug.LogError($"{ItemRarity.Magic}: {statConfigData.weaponConfigs[ItemRarity.Magic].DamageValue(15, ItemRarity.Magic)}");
+    }
+    #endregion SCRIPTABLE OBJECT DATA
 }
