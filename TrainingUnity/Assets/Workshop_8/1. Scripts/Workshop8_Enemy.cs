@@ -1,19 +1,18 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Workshop8_Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+    [SerializeField] private float velocity;
+    private Vector3 direction; // vector có giá trị độ dài = 1
     void Update()
     {
-
+        transform.position += velocity * direction * Time.deltaTime;
+        if (gameManager != null && gameManager.tower != null && gameManager.tower.gameObject.activeSelf == true)
+        {
+            direction = (gameManager.tower.transform.position - transform.position).normalized;
+        }
     }
 
     Workshop8_GameManager gameManager;
@@ -25,6 +24,7 @@ public class Workshop8_Enemy : MonoBehaviour
         gameManager = GameManager;
         currentLife = baseLife;
         enemyIndex = EnemyIndex;
+        direction = Vector3.zero;
     }
 
     #region TAKE DMG

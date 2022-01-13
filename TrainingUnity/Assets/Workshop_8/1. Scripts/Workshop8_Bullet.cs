@@ -12,7 +12,6 @@ public class Workshop8_Bullet : MonoBehaviour
     public void SetInfo(Vector3 Direction, Workshop8_Enemy Target, float TargetRadius, float Damage)
     {
         damage = Damage;
-        direction = Direction;
         target = Target;
         sqrCollisionRadius = Mathf.Pow(bulletRadius + TargetRadius, 2);
 
@@ -24,6 +23,9 @@ public class Workshop8_Bullet : MonoBehaviour
         transform.position += velocity * direction * Time.deltaTime;
 
         if (target.gameObject.activeSelf == false) return;
+
+        direction = (target.transform.position - transform.position).normalized;
+        transform.localEulerAngles = Vector3.forward * Vector2.SignedAngle(Vector2.right, direction);
 
         if ((transform.position - target.transform.position).sqrMagnitude < sqrCollisionRadius)
         {

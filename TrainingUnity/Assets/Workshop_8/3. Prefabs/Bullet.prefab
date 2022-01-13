@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ead92ad035b9a4f9331160cc405823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 4
+  velocity: 5
   bulletRadius: 0.2
 --- !u!212 &4900561313545825780
 SpriteRenderer:

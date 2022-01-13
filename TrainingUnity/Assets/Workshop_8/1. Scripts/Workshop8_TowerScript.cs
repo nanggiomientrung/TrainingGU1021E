@@ -10,6 +10,11 @@ public class Workshop8_TowerScript : MonoBehaviour
     [SerializeField] private float attackTargetCooldown = 1f;
     private float seekTargetTimer;
     private float attackTargetTimer;
+    private void Start()
+    {
+        gameManager.SetTower(this);
+    }
+
     void Update()
     {
         seekTargetTimer += Time.deltaTime;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Workshop8_GameManager : MonoBehaviour
 {
+
     private void Start()
     {
         SpawnEnemy();
@@ -15,6 +16,14 @@ public class Workshop8_GameManager : MonoBehaviour
         SimplePool.Despawn(enemiesDict[DieEnemyIndex].gameObject);
         enemiesDict.Remove(DieEnemyIndex);
     }
+
+    public Workshop8_TowerScript tower { get; private set; }
+
+    public void SetTower(Workshop8_TowerScript Tower)
+    {
+        tower = Tower;
+    }
+
     #region SPAWN ENEMY
     [SerializeField] private Workshop8_Enemy enemyPrefab;
     [SerializeField] private Transform enemyContainer;
