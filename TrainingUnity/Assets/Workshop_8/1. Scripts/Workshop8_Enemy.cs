@@ -6,12 +6,19 @@ public class Workshop8_Enemy : MonoBehaviour
 {
     [SerializeField] private float velocity;
     private Vector3 direction; // vector có giá trị độ dài = 1
+    float sqrCollisionRadius;
     void Update()
     {
         transform.position += velocity * direction * Time.deltaTime;
         if (gameManager != null && gameManager.tower != null && gameManager.tower.gameObject.activeSelf == true)
         {
             direction = (gameManager.tower.transform.position - transform.position).normalized;
+
+            if ((transform.position - gameManager.tower.transform.position).sqrMagnitude < sqrCollisionRadius)
+            {
+                // deal dmg lên trụ
+                direction = Vector3.zero;
+            }
         }
     }
 
@@ -25,6 +32,8 @@ public class Workshop8_Enemy : MonoBehaviour
         currentLife = baseLife;
         enemyIndex = EnemyIndex;
         direction = Vector3.zero;
+
+        sqrCollisionRadius = Mathf.Pow(radius + gameManager.tower.towerRadius, 2);
     }
 
     #region TAKE DMG

@@ -7,12 +7,11 @@ public class Workshop8_GameManager : MonoBehaviour
 
     private void Start()
     {
-        SpawnEnemy();
+        StartCoroutine(AutoSpawnEnemy());
     }
 
     public void OnEnemyDie(int DieEnemyIndex)
     {
-        SpawnEnemy();
         SimplePool.Despawn(enemiesDict[DieEnemyIndex].gameObject);
         enemiesDict.Remove(DieEnemyIndex);
     }
@@ -31,6 +30,16 @@ public class Workshop8_GameManager : MonoBehaviour
     private int currentEnemyIndex = -1;
 
     private Workshop8_Enemy currentEnemy;
+
+    IEnumerator AutoSpawnEnemy()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            SpawnEnemy();
+        }
+    }
+
     private void SpawnEnemy()
     {
         currentEnemy = SimplePool.Spawn(enemyPrefab);
@@ -39,7 +48,7 @@ public class Workshop8_GameManager : MonoBehaviour
         currentEnemy.ResetState(this, currentEnemyIndex);
         enemiesDict.Add(currentEnemyIndex, currentEnemy);
 
-        currentEnemy.transform.position = new Vector3(Random.Range(-7f, 7f), Random.Range(-4f, 4f));
+        currentEnemy.transform.position = new Vector3(Random.Range(0, 2) == 0 ? Random.Range(-7f, -3.5f) : Random.Range(3.5f, 7f), Random.Range(-4f, 4f));
     }
     #endregion SPAWN ENEMY
 }

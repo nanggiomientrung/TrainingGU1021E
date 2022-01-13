@@ -5,12 +5,13 @@ using UnityEngine;
 public class Workshop8_TowerScript : MonoBehaviour
 {
     [SerializeField] private Workshop8_GameManager gameManager;
-
+    public float towerRadius = 1.28f;
     [SerializeField] private float seekTargetCooldown = 0.1f;
     [SerializeField] private float attackTargetCooldown = 1f;
+    [SerializeField] private float detectSqrRadius = 9; // = 3^2
     private float seekTargetTimer;
     private float attackTargetTimer;
-    private void Start()
+    private void Awake()
     {
         gameManager.SetTower(this);
     }
@@ -58,7 +59,7 @@ public class Workshop8_TowerScript : MonoBehaviour
         foreach (var enemy in gameManager.enemiesDict.Values)
         {
             sqrDistance = GetSqrDistance(transform, enemy.transform);
-            if (minDistance > sqrDistance)
+            if (minDistance > sqrDistance && sqrDistance <= detectSqrRadius)
             {
                 minDistance = sqrDistance;
                 minDistanceIndex = enemy.enemyIndex;
@@ -80,4 +81,5 @@ public class Workshop8_TowerScript : MonoBehaviour
         return (targetTransform.position - transform.position).normalized;
     }
     #endregion AUTO TARGET
+
 }
