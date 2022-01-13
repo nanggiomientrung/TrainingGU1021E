@@ -40,6 +40,7 @@ public class LordMobileMob : MonoBehaviour
             }
             return;
         }
+
         SeekTarget();
     }
 
